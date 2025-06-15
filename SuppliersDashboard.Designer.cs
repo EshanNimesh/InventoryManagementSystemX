@@ -35,38 +35,42 @@
             // 
             // customersbtn
             // 
-            this.customersbtn.Location = new System.Drawing.Point(82, 158);
+            this.customersbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.customersbtn.Location = new System.Drawing.Point(70, 96);
             this.customersbtn.Name = "customersbtn";
-            this.customersbtn.Size = new System.Drawing.Size(75, 23);
+            this.customersbtn.Size = new System.Drawing.Size(79, 36);
             this.customersbtn.TabIndex = 0;
             this.customersbtn.Text = "Customers";
-            this.customersbtn.UseVisualStyleBackColor = true;
+            this.customersbtn.UseVisualStyleBackColor = false;
             this.customersbtn.Click += new System.EventHandler(this.customersbtn_Click);
             // 
             // productsbtn
             // 
-            this.productsbtn.Location = new System.Drawing.Point(82, 258);
+            this.productsbtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.productsbtn.Location = new System.Drawing.Point(70, 197);
             this.productsbtn.Name = "productsbtn";
-            this.productsbtn.Size = new System.Drawing.Size(75, 23);
+            this.productsbtn.Size = new System.Drawing.Size(79, 35);
             this.productsbtn.TabIndex = 1;
             this.productsbtn.Text = "Products";
-            this.productsbtn.UseVisualStyleBackColor = true;
+            this.productsbtn.UseVisualStyleBackColor = false;
             this.productsbtn.Click += new System.EventHandler(this.productsbtn_Click);
             // 
             // signoutbtnsd1
             // 
-            this.signoutbtnsd1.Location = new System.Drawing.Point(82, 356);
+            this.signoutbtnsd1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.signoutbtnsd1.Location = new System.Drawing.Point(70, 311);
             this.signoutbtnsd1.Name = "signoutbtnsd1";
-            this.signoutbtnsd1.Size = new System.Drawing.Size(75, 23);
+            this.signoutbtnsd1.Size = new System.Drawing.Size(79, 34);
             this.signoutbtnsd1.TabIndex = 2;
             this.signoutbtnsd1.Text = "Sign Out";
-            this.signoutbtnsd1.UseVisualStyleBackColor = true;
+            this.signoutbtnsd1.UseVisualStyleBackColor = false;
             this.signoutbtnsd1.Click += new System.EventHandler(this.signoutbtnsd1_Click);
             // 
             // SuppliersDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.signoutbtnsd1);
             this.Controls.Add(this.productsbtn);

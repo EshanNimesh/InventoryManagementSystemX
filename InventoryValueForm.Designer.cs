@@ -36,7 +36,7 @@
             // lblTotalValue
             // 
             this.lblTotalValue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.lblTotalValue.Location = new System.Drawing.Point(44, 116);
+            this.lblTotalValue.Location = new System.Drawing.Point(40, 92);
             this.lblTotalValue.Name = "lblTotalValue";
             this.lblTotalValue.RowHeadersWidth = 51;
             this.lblTotalValue.RowTemplate.Height = 24;
@@ -46,18 +46,20 @@
             // lblTotalValue1
             // 
             this.lblTotalValue1.AutoSize = true;
-            this.lblTotalValue1.Location = new System.Drawing.Point(368, 73);
+            this.lblTotalValue1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblTotalValue1.Location = new System.Drawing.Point(368, 51);
             this.lblTotalValue1.Name = "lblTotalValue1";
-            this.lblTotalValue1.Size = new System.Drawing.Size(44, 16);
+            this.lblTotalValue1.Size = new System.Drawing.Size(38, 16);
             this.lblTotalValue1.TabIndex = 1;
-            this.lblTotalValue1.Text = "label1";
+            this.lblTotalValue1.Text = "Total";
             this.lblTotalValue1.Click += new System.EventHandler(this.lblTotalValue1_Click);
             // 
             // TotalInventoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(788, 438);
             this.Controls.Add(this.lblTotalValue1);
             this.Controls.Add(this.lblTotalValue);
             this.Name = "TotalInventoryForm";

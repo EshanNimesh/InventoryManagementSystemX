@@ -82,25 +82,24 @@ namespace WindowsFormsApp15555
         //Update product
         public void UpdateProduct(Item item)
         {
-            string connectionString = "server=localhost;user id=root;password=;database=inventory_db;";
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string query = "UPDATE suppliers SET Name = @Name, Description = @Description, Quantity = @Quantity, Price = @Price WHERE ID = @ID";
-
+                connection.Open();
+                string query = "UPDATE suppliers SET ID = @ID, Name = @name, Description = @description, Quantity = @quantity, Price = @price WHERE ID = @ID";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ID", item.ID);
-                    command.Parameters.AddWithValue("@Name", item.name);
-                    command.Parameters.AddWithValue("@Description", item.description);
-                    command.Parameters.AddWithValue("@Quantity", item.quantity);
-                    command.Parameters.AddWithValue("@Price", item.price);
 
-                    connection.Open();
+                    command.Parameters.AddWithValue("@ID", item.ID);
+                    command.Parameters.AddWithValue("@name", item.name);
+                    command.Parameters.AddWithValue("@description", item.description);
+                    command.Parameters.AddWithValue("@quantity", item.quantity);
+                    command.Parameters.AddWithValue("@price", item.price);
                     command.ExecuteNonQuery();
                 }
             }
-
         }
+
+        
 
 
 

@@ -37,38 +37,41 @@
             // 
             // customersbtn1
             // 
-            this.customersbtn1.Location = new System.Drawing.Point(93, 81);
+            this.customersbtn1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.customersbtn1.Location = new System.Drawing.Point(21, 27);
             this.customersbtn1.Name = "customersbtn1";
-            this.customersbtn1.Size = new System.Drawing.Size(75, 23);
+            this.customersbtn1.Size = new System.Drawing.Size(87, 30);
             this.customersbtn1.TabIndex = 0;
             this.customersbtn1.Text = "Customers";
-            this.customersbtn1.UseVisualStyleBackColor = true;
+            this.customersbtn1.UseVisualStyleBackColor = false;
             this.customersbtn1.Click += new System.EventHandler(this.customersbtn1_Click);
             // 
             // productsbtn1
             // 
-            this.productsbtn1.Location = new System.Drawing.Point(82, 190);
+            this.productsbtn1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.productsbtn1.Location = new System.Drawing.Point(21, 141);
             this.productsbtn1.Name = "productsbtn1";
-            this.productsbtn1.Size = new System.Drawing.Size(75, 23);
+            this.productsbtn1.Size = new System.Drawing.Size(98, 33);
             this.productsbtn1.TabIndex = 1;
             this.productsbtn1.Text = "Products";
-            this.productsbtn1.UseVisualStyleBackColor = true;
+            this.productsbtn1.UseVisualStyleBackColor = false;
             this.productsbtn1.Click += new System.EventHandler(this.productsbtn1_Click);
             // 
             // signoutbtnsd2
             // 
-            this.signoutbtnsd2.Location = new System.Drawing.Point(93, 355);
+            this.signoutbtnsd2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.signoutbtnsd2.Location = new System.Drawing.Point(32, 295);
             this.signoutbtnsd2.Name = "signoutbtnsd2";
-            this.signoutbtnsd2.Size = new System.Drawing.Size(75, 23);
+            this.signoutbtnsd2.Size = new System.Drawing.Size(87, 32);
             this.signoutbtnsd2.TabIndex = 2;
             this.signoutbtnsd2.Text = "Sign Out";
-            this.signoutbtnsd2.UseVisualStyleBackColor = true;
+            this.signoutbtnsd2.UseVisualStyleBackColor = false;
             this.signoutbtnsd2.Click += new System.EventHandler(this.signoutbtnsd2_Click);
             // 
             // supcustomersgrid
             // 
             this.supcustomersgrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.supcustomersgrid.Location = new System.Drawing.Point(315, 108);
+            this.supcustomersgrid.Location = new System.Drawing.Point(180, 27);
             this.supcustomersgrid.Name = "supcustomersgrid";
             this.supcustomersgrid.RowHeadersWidth = 51;
             this.supcustomersgrid.RowTemplate.Height = 24;
@@ -80,7 +83,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(678, 382);
             this.Controls.Add(this.supcustomersgrid);
             this.Controls.Add(this.signoutbtnsd2);
             this.Controls.Add(this.productsbtn1);

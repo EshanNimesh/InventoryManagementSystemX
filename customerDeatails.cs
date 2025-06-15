@@ -260,5 +260,10 @@ namespace WindowsFormsApp15555
                 txtPrice.Text = selectedOrder.Price.ToString();
             }
         }
+
+        private void txtResidencialAddress_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -48,7 +48,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 40);
+            this.label1.Location = new System.Drawing.Point(21, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 16);
             this.label1.TabIndex = 0;
@@ -56,28 +56,28 @@
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(122, 34);
+            this.txtID.Location = new System.Drawing.Point(117, 63);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(145, 22);
             this.txtID.TabIndex = 1;
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(122, 96);
+            this.txtName.Location = new System.Drawing.Point(117, 126);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(145, 22);
             this.txtName.TabIndex = 2;
             // 
             // txtSKU
             // 
-            this.txtSKU.Location = new System.Drawing.Point(122, 169);
+            this.txtSKU.Location = new System.Drawing.Point(117, 175);
             this.txtSKU.Name = "txtSKU";
             this.txtSKU.Size = new System.Drawing.Size(145, 22);
             this.txtSKU.TabIndex = 3;
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(122, 232);
+            this.txtQuantity.Location = new System.Drawing.Point(117, 235);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(145, 22);
             this.txtQuantity.TabIndex = 4;
@@ -85,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 102);
+            this.label2.Location = new System.Drawing.Point(21, 132);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 16);
             this.label2.TabIndex = 5;
@@ -94,7 +94,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(46, 169);
+            this.label3.Location = new System.Drawing.Point(21, 181);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 16);
             this.label3.TabIndex = 6;
@@ -103,7 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(46, 232);
+            this.label4.Location = new System.Drawing.Point(21, 241);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 16);
             this.label4.TabIndex = 7;
@@ -112,7 +112,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(46, 296);
+            this.label5.Location = new System.Drawing.Point(21, 302);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 16);
             this.label5.TabIndex = 8;
@@ -120,39 +120,42 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(122, 296);
+            this.txtPrice.Location = new System.Drawing.Point(117, 296);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(145, 22);
             this.txtPrice.TabIndex = 9;
             // 
             // btnAdd
             // 
+            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnAdd.Location = new System.Drawing.Point(346, 383);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(102, 31);
             this.btnAdd.TabIndex = 10;
             this.btnAdd.Text = "Add Product";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnUpdate
             // 
+            this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnUpdate.Location = new System.Drawing.Point(496, 383);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(111, 31);
             this.btnUpdate.TabIndex = 12;
             this.btnUpdate.Text = "Update Product";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnDelete.Location = new System.Drawing.Point(651, 383);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(115, 31);
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Delete Product";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // lstProducts
@@ -171,7 +174,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(979, 497);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(979, 461);
             this.Controls.Add(this.lstProducts);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);

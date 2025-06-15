@@ -82,16 +82,11 @@ namespace WindowsFormsApp15555
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvProducts.Rows[e.RowIndex];
-
-                txtName.Text = row.Cells["name"].Value.ToString();
-                txtSKU.Text = row.Cells["sku"].Value.ToString();
-                txtQuantity.Text = row.Cells["quantity"].Value.ToString();
-                txtPrice.Text = row.Cells["price"].Value.ToString();
-
-                if (row.Cells["category_id"].Value != DBNull.Value)
-                {
-                    cmbCategory.SelectedValue = Convert.ToInt32(row.Cells["category_id"].Value);
-                }
+                txtName.Text = row.Cells["Name"].Value.ToString();
+                txtSKU.Text = row.Cells["SKU"].Value.ToString();
+                txtQuantity.Text = row.Cells["Quantity"].Value.ToString();
+                txtPrice.Text = row.Cells["Price"].Value.ToString();
+                cmbCategory.SelectedValue = row.Cells["CategoryID"].Value;
             }
         }
         private void ClearFormFields()
@@ -100,7 +95,7 @@ namespace WindowsFormsApp15555
             txtSKU.Clear();
             txtQuantity.Clear();
             txtPrice.Clear();
-            cmbCategory.SelectedIndex = -1; // unselects the dropdown
+            cmbCategory.SelectedIndex = -1; 
         }
 
         private void btnAdd_Click_1(object sender, EventArgs e)
@@ -111,11 +106,11 @@ namespace WindowsFormsApp15555
                 con.Open();
                 string query = "INSERT INTO products (name, sku, quantity, price, category_id) VALUES (@name, @sku, @quantity, @price, @category_id)";
                 MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
-                cmd.Parameters.AddWithValue("@sku", txtSKU.Text.Trim());
-                cmd.Parameters.AddWithValue("@quantity", int.Parse(txtQuantity.Text.Trim()));
-                cmd.Parameters.AddWithValue("@price", decimal.Parse(txtPrice.Text.Trim()));
-                cmd.Parameters.AddWithValue("@category_id", cmbCategory.SelectedValue ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Name", txtName.Text.Trim());
+                cmd.Parameters.AddWithValue("@SKU", txtSKU.Text.Trim());
+                cmd.Parameters.AddWithValue("@Quantity", int.Parse(txtQuantity.Text.Trim()));
+                cmd.Parameters.AddWithValue("@Price", decimal.Parse(txtPrice.Text.Trim()));
+                cmd.Parameters.AddWithValue("@CategoryID", cmbCategory.SelectedValue ?? DBNull.Value);
 
                 cmd.ExecuteNonQuery();
             }
@@ -127,44 +122,58 @@ namespace WindowsFormsApp15555
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (dgvProducts.CurrentRow == null || dgvProducts.CurrentRow.Cells["id"].Value == null)
+            if (dgvProducts.SelectedRows.Count > 0)
+            {
+                int selectedId = Convert.ToInt32(dgvProducts.SelectedRows[0].Cells["id"].Value); // ← Fix here
+                string name = txtName.Text.Trim();
+                string sku = txtSKU.Text.Trim();
+
+                if (!int.TryParse(txtQuantity.Text.Trim(), out int quantity))
+                {
+                    MessageBox.Show("Quantity must be a valid whole number.");
+                    return;
+                }
+
+                if (!decimal.TryParse(txtPrice.Text.Trim(), out decimal price))
+                {
+                    MessageBox.Show("Price must be a valid decimal number.");
+                    return;
+                }
+
+                if (cmbCategory.SelectedValue == null)
+                {
+                    MessageBox.Show("Please select a category.");
+                    return;
+                }
+
+                int categoryId = Convert.ToInt32(cmbCategory.SelectedValue);
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    string query = "UPDATE products SET name = @Name, sku = @SKU, quantity = @Quantity, price = @Price, category_id = @CategoryID WHERE id = @ID";
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@SKU", sku);
+                    cmd.Parameters.AddWithValue("@Quantity", quantity);
+                    cmd.Parameters.AddWithValue("@Price", price);
+                    cmd.Parameters.AddWithValue("@CategoryID", categoryId);
+                    cmd.Parameters.AddWithValue("@ID", selectedId);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+
+                MessageBox.Show("Product updated successfully!");
+                LoadProducts();
+                ClearFormFields();
+            }
+            else
             {
                 MessageBox.Show("Please select a product to update.");
-                return;
             }
-
-            string id = dgvProducts.CurrentRow.Cells["id"].Value.ToString();
-
-            if (!int.TryParse(txtQuantity.Text.Trim(), out int quantity))
-            {
-                MessageBox.Show("Quantity must be a valid integer.");
-                return;
-            }
-
-            if (!decimal.TryParse(txtPrice.Text.Trim(), out decimal price))
-            {
-                MessageBox.Show("Price must be a valid decimal number.");
-                return;
-            }
-
-            using (MySqlConnection con = new MySqlConnection(connectionString))
-            {
-                con.Open();
-                string query = "UPDATE products SET name = @name, sku = @sku, quantity = @quantity, price = @price, category_id = @category_id WHERE id = @id";
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
-                cmd.Parameters.AddWithValue("@sku", txtSKU.Text.Trim());
-                cmd.Parameters.AddWithValue("@quantity", quantity);
-                cmd.Parameters.AddWithValue("@price", price);
-                cmd.Parameters.AddWithValue("@category_id", cmbCategory.SelectedValue ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.ExecuteNonQuery();
-            }
-
-            LoadProducts();
-            ClearFormFields();
-            MessageBox.Show("Product updated successfully!");
         }
+
         private void btnDelete_Click_1(object sender, EventArgs e)
         {
             if (dgvProducts.CurrentRow != null)
