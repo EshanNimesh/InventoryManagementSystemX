@@ -12,7 +12,7 @@ namespace WindowsFormsApp15555
         public ProductForm()
         {
             InitializeComponent();
-            dgvProducts.CellClick += dgvProducts_CellContentClick;
+            dgvProducts.CellContentClick += dgvProducts_CellContentClick;
 
         }
 
@@ -24,16 +24,14 @@ namespace WindowsFormsApp15555
 
         private void LoadCategories()
         {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            using (MySqlConnection con = new MySqlConnection(connectionString))
             {
-                conn.Open();
                 string query = "SELECT CategoryID, CategoryName FROM categories";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable table = new DataTable();
-                adapter.Fill(table);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
 
-                cmbCategory.DataSource = table;
+                cmbCategory.DataSource = dt;
                 cmbCategory.DisplayMember = "CategoryName";
                 cmbCategory.ValueMember = "CategoryID";
             }
@@ -41,18 +39,13 @@ namespace WindowsFormsApp15555
 
         private void LoadProducts()
         {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            using (MySqlConnection con = new MySqlConnection(connectionString))
             {
-                conn.Open();
-                string query = "SELECT ID, Name, SKU, Quantity, Price, CategoryID FROM products";
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable table = new DataTable();
-                adapter.Fill(table);
-                dgvProducts.AutoGenerateColumns = true;
-                dgvProducts.DataSource = table; // This line refreshes the grid
-                dgvProducts.CellContentClick += dgvProducts_CellContentClick;
-
+                string query = "SELECT id, name, sku, quantity, price, category_id FROM products";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                dgvProducts.DataSource = dt;
             }
         }
 
@@ -94,6 +87,11 @@ namespace WindowsFormsApp15555
                 txtSKU.Text = row.Cells["sku"].Value.ToString();
                 txtQuantity.Text = row.Cells["quantity"].Value.ToString();
                 txtPrice.Text = row.Cells["price"].Value.ToString();
+
+                if (row.Cells["category_id"].Value != DBNull.Value)
+                {
+                    cmbCategory.SelectedValue = Convert.ToInt32(row.Cells["category_id"].Value);
+                }
             }
         }
         private void ClearFormFields()
@@ -108,68 +106,64 @@ namespace WindowsFormsApp15555
         private void btnAdd_Click_1(object sender, EventArgs e)
         {
 
-            try
+            using (MySqlConnection con = new MySqlConnection(connectionString))
             {
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
-                {
-                    conn.Open();
-                    string query = "INSERT INTO products (Name, SKU, Quantity, Price, CategoryID) " +
-                                   "VALUES (@name, @sku, @quantity, @price, @category_id)";
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
-                        cmd.Parameters.AddWithValue("@sku", txtSKU.Text.Trim());
-                        cmd.Parameters.AddWithValue("@quantity", int.Parse(txtQuantity.Text));
-                        cmd.Parameters.AddWithValue("@price", decimal.Parse(txtPrice.Text));
-                        cmd.Parameters.AddWithValue("@category_id", cmbCategory.SelectedValue ?? DBNull.Value);
+                con.Open();
+                string query = "INSERT INTO products (name, sku, quantity, price, category_id) VALUES (@name, @sku, @quantity, @price, @category_id)";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
+                cmd.Parameters.AddWithValue("@sku", txtSKU.Text.Trim());
+                cmd.Parameters.AddWithValue("@quantity", int.Parse(txtQuantity.Text.Trim()));
+                cmd.Parameters.AddWithValue("@price", decimal.Parse(txtPrice.Text.Trim()));
+                cmd.Parameters.AddWithValue("@category_id", cmbCategory.SelectedValue ?? DBNull.Value);
 
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Product added successfully!");
-                        LoadProducts(); // Refresh the DataGridView
-                        ClearFormFields(); // <<< Add this line here
-                    }
-                }
+                cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
+
+            LoadProducts();
+            ClearFormFields();
+            MessageBox.Show("Product added successfully!");
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (dgvProducts.SelectedRows.Count == 0)
+            if (dgvProducts.CurrentRow == null || dgvProducts.CurrentRow.Cells["id"].Value == null)
             {
                 MessageBox.Show("Please select a product to update.");
                 return;
             }
 
-            string id = dgvProducts.SelectedRows[0].Cells["id"].Value.ToString();
+            string id = dgvProducts.CurrentRow.Cells["id"].Value.ToString();
+
+            if (!int.TryParse(txtQuantity.Text.Trim(), out int quantity))
+            {
+                MessageBox.Show("Quantity must be a valid integer.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtPrice.Text.Trim(), out decimal price))
+            {
+                MessageBox.Show("Price must be a valid decimal number.");
+                return;
+            }
 
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
-                string query = "UPDATE products SET name = @name, sku = @sku, quantity = @quantity, price = @price WHERE id = @id";
+                string query = "UPDATE products SET name = @name, sku = @sku, quantity = @quantity, price = @price, category_id = @category_id WHERE id = @id";
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@name", txtName.Text.Trim());
                 cmd.Parameters.AddWithValue("@sku", txtSKU.Text.Trim());
-
-                if (!int.TryParse(txtQuantity.Text.Trim(), out int quantity))
-                {
-                    MessageBox.Show("Quantity must be a valid integer.");
-                    return;
-                }
-                if (!decimal.TryParse(txtPrice.Text.Trim(), out decimal price))
-                {
-                    MessageBox.Show("Price must be a valid decimal number.");
-                    return;
-                }
-
                 cmd.Parameters.AddWithValue("@quantity", quantity);
                 cmd.Parameters.AddWithValue("@price", price);
+                cmd.Parameters.AddWithValue("@category_id", cmbCategory.SelectedValue ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
+
+            LoadProducts();
+            ClearFormFields();
+            MessageBox.Show("Product updated successfully!");
         }
         private void btnDelete_Click_1(object sender, EventArgs e)
         {
